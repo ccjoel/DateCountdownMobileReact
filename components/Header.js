@@ -5,7 +5,7 @@ export default class Header extends React.Component {
     render() {
         return (
             <View style={styles.container}>
-                <Text>DateCountdown</Text>
+                <Text style={styles.title}>Santa's Countdown!</Text>
             </View>
         );
     }
@@ -13,12 +13,14 @@ export default class Header extends React.Component {
 
 const styles = StyleSheet.create({
     container: {
-        display: 'flex',
-        width: '100%',
-        height: 60,
         flexDirection: 'row',
-        backgroundColor: 'blue',
+        backgroundColor: 'aliceblue',
         alignItems: 'center',
-        justifyContent: 'center'
+        justifyContent: 'center',
+        height: 80
+    },
+    title: {
+        fontSize: 45,
+        color: 'red'
     }
 });
