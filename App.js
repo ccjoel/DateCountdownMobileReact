@@ -14,8 +14,25 @@ function sysInfo() {
 /* <StatusBar translucent={true} backgroundColor={'transparent'} />*/
 
 export default class App extends React.Component {
+
+    constructor(props) {
+        super(props);
+        this.toggleTimer = this.toggleTimer.bind(this);
+        this.state = {
+            timerEnabled: true
+        };
+    }
+
+    toggleTimer() {
+        console.log('toggled timer, pressed text...');
+        this.setState({timerEnabled: !this.state.timerEnabled});
+    }
+
     render() {
         console.log('App.js re-render.');
+
+        const { timerEnabled } = this.state,
+              toggleButtonLbl = timerEnabled ? 'OFF' : 'ON';
 
         return (
             <View style={styles.container}>
@@ -28,12 +45,17 @@ export default class App extends React.Component {
 
                     <Text style={styles.platformText}></Text>
 
-                    <Timer />
+                    <Timer enabled={timerEnabled}/>
 
                     <View style={styles.buttonContainer}>
 
                         <Image source={require('./images/button2.png')}
-                            style={styles.button}/>
+                            style={styles.button}>
+
+                            <Text onpress={this.toggleTimer}
+                                  style={styles.toggle}>{toggleButtonLbl}</Text>
+
+                        </Image>
 
                     </View>
                 </Image>
@@ -65,6 +87,13 @@ const styles = StyleSheet.create({
     },
     button: {
         width: 150,
-        height: 150
+        height: 150,
+        justifyContent: 'center',
+        alignItems: 'center'
+    },
+    toggle:{
+        color: 'yellow',
+        fontSize: 50,
+        fontWeight: 'bold'
     }
 });

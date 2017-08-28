@@ -1,5 +1,6 @@
 import React from 'react';
 import { StyleSheet, Text, View } from 'react-native';
+import PropTypes from 'prop-types';
 import moment from 'moment';
 
 function remainingFormatted() {
@@ -45,14 +46,20 @@ export default class Timer extends React.Component {
     componentWillMount() {
         console.log('componentWillMount. setting interval');
 
-        this.interval = setInterval(() => {
-            this.setState({remaining: remainingFormatted()});
-        }, 1000);
+        if (this.props.enabled) {
+            console.log('enabled.. should set interval..');
+            this.interval = setInterval(() => {
+                this.setState({remaining: remainingFormatted()});
+            }, 1000);
+        }
     }
 
     componentWillUnmount() {
-        console.log('unmounting, clearing interval...');
-        clearInterval(this.interval);
+        console.log('unmounting...');
+        if(this.state.enabled) {
+            console.log('clearing interval');
+            clearInterval(this.interval);
+        }
     }
 
     render() {
@@ -73,11 +80,13 @@ export default class Timer extends React.Component {
 const styles = StyleSheet.create({
     timer: {
         flexDirection: 'row',
-        justifyContent: 'center'
+        justifyContent: 'center',
+        width: '100%',
+        // backgroundColor: 'rgba(128,125,33,0.4)'
     },
     clockText: {
         color: 'red',
-        backgroundColor: 'rgba(127,255,0,0.5)',
+        // backgroundColor: 'rgba(127,255,0,0.5)',
         fontSize: 60,
         textAlign: 'center'
     }
