@@ -15,7 +15,7 @@ function sysInfo() {
 
 export default class App extends React.Component {
     render() {
-        console.log('render');
+        console.log('App.js re-render.');
 
         return (
             <View style={styles.container}>

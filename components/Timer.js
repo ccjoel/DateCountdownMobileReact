@@ -35,22 +35,30 @@ function remainingFormatted() {
 }
 
 export default class Timer extends React.Component {
+    constructor(props) {
+        super(props);
+        this.state = {
+            remaining: remainingFormatted()
+        };
+    }
+
     componentWillMount() {
-        console.log('componentWillMount');
+        console.log('componentWillMount. setting interval');
 
-        this.state.remaining = remainingFormatted();
-        /* setInterval(() => {
-         *     this.setState()
-
-         * }, 2000);*/
+        this.interval = setInterval(() => {
+            this.setState({remaining: remainingFormatted()});
+        }, 1000);
     }
 
     componentWillUnmount() {
-        console.log('unmounting');
+        console.log('unmounting, clearing interval...');
+        clearInterval(this.interval);
     }
 
     render() {
         const { remaining } = this.state;
+
+        console.log('timer re-render');
 
         return (
             <View style={styles.timer}>
@@ -64,7 +72,6 @@ export default class Timer extends React.Component {
 
 const styles = StyleSheet.create({
     timer: {
-        /* backgroundColor: 'gray',*/
         flexDirection: 'row',
         justifyContent: 'center'
     },

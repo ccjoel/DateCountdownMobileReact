@@ -3,6 +3,7 @@ import { StyleSheet, Text, View } from 'react-native';
 
 export default class Header extends React.Component {
     render() {
+        console.log('header re-render');
         return (
             <View style={styles.container}>
                 <Text style={styles.title}>Santa's Countdown!</Text>
