@@ -1,5 +1,6 @@
 import React from 'react';
 import { StyleSheet, Text, View } from 'react-native';
+import moment from 'moment';
 
 function remainingFormatted() {
     const today = moment(),
@@ -34,20 +35,43 @@ function remainingFormatted() {
 }
 
 export default class Timer extends React.Component {
+    componentWillMount() {
+        console.log('componentWillMount');
+
+        this.state.remaining = remainingFormatted();
+        /* setInterval(() => {
+         *     this.setState()
+
+         * }, 2000);*/
+    }
+
+    componentWillUnmount() {
+        console.log('unmounting');
+    }
+
     render() {
+        const { remaining } = this.state;
+
         return (
-            <View style={styles.container}>
+            <View style={styles.timer}>
+                <Text style={styles.clockText}>
+                    {remaining}
+                </Text>
             </View>
         );
     }
 }
 
 const styles = StyleSheet.create({
-    container: {
+    timer: {
+        /* backgroundColor: 'gray',*/
         flexDirection: 'row',
-        backgroundColor: 'aliceblue',
-        alignItems: 'center',
-        justifyContent: 'center',
-        height: 80
+        justifyContent: 'center'
+    },
+    clockText: {
+        color: 'red',
+        backgroundColor: 'rgba(127,255,0,0.5)',
+        fontSize: 60,
+        textAlign: 'center'
     }
 });
